@@ -1,18 +1,16 @@
-#ifndef STATICTEXT_HPP
-#define STATICTEXT_HPP
+#pragma once
 
-#include "widgets.hpp"
+#include "widget.hpp"
 
 class StaticText : public Widget
 {
 public:
-    StaticText(int,int,int,int,std::string);
-
-protected:
-    std::string _text;
-
+    StaticText(std::vector<Widget*>& w, int x, int y, std::string text);
     virtual void draw() override;
     virtual void handle(genv::event ev);
+    virtual std::string to_string();
+    virtual std::string getText();
+    virtual void setText(std::string text);
+protected:
+    std::string text = "";
 };
-
-#endif // STATICTEXT_HPP

@@ -1,8 +1,10 @@
-#include "widget.hpp"
-#include "button.hpp"
+#pragma once
 
 #include <iostream>
 #include <functional>
+
+#include "widget.hpp"
+#include "button.hpp"
 
 using namespace genv;
 

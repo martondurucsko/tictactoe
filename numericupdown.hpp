@@ -1,6 +1,8 @@
-#include "widget.hpp"
+#pragma once
 
 #include <functional>
+
+#include "widget.hpp"
 
 using namespace genv;
 using namespace std;

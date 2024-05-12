@@ -1,5 +1,8 @@
-#include "widget.hpp"
+#pragma once
+
 #include <functional>
+
+#include "widget.hpp"
 
 class Button : public Widget
 {

@@ -80,6 +80,11 @@ void Selector::init(vector<Widget*>& w) {
 }
 
 void Selector::draw() {
+    if (prevSelectedIndex != selectedIndex) {
+        prevSelectedIndex = selectedIndex;
+        onChange();
+    }
+
     if (!visible) {
         return;
     }
@@ -296,4 +301,12 @@ string Selector::to_string(){
     }
 
     return "Selector: Value: " + getValue() + ", selectedIndex: " + std::to_string(selectedIndex) + ", Elements: {" + elements + "}";
+}
+
+function<void()> Selector::getOnChange(){
+    return onChange;
+}
+
+void Selector::setOnChange(function<void()> onChange){
+    this->onChange = onChange;
 }

@@ -37,6 +37,11 @@ void NumericUpDown::init(std::vector<Widget*>& w){
 
 void NumericUpDown::draw()
 {
+    if (prevValue != value) {
+        prevValue = value;
+        onChange();
+    }
+
     if (!visible) {
         return;
     }
@@ -92,4 +97,11 @@ int NumericUpDown::getMinValue() {
 }
 std::string NumericUpDown::to_string() {
     return "NumericUpDown: Value: " + std::to_string(value) + ", StepValue: " + std::to_string(stepValue) + ", Intervall: [" + std::to_string(minValue) +", "+ std::to_string(maxValue) + "]";
+}
+function<void()> NumericUpDown::getOnChange(){
+    return onChange;
+}
+
+void NumericUpDown::setOnChange(function<void()> onChange){
+    this->onChange = onChange;
 }

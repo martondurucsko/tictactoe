@@ -1,6 +1,9 @@
 #include "widget.hpp"
 #include "button.hpp"
 
+#include <iostream>
+#include <functional>
+
 using namespace genv;
 
 class Selector : public Widget
@@ -30,14 +33,18 @@ public:
     virtual void setEnable(bool enable);
     virtual vector<string> getOptions();
     virtual void setOptions(vector<string> options);
+    virtual function<void()> getOnChange();
+    virtual void setOnChange(function<void()> onChange);
 
 protected:
     int selectedIndex = 0;
+    int prevSelectedIndex = 0;
     int maxLines = 4;
     int scrollValue = 0;
     bool isOpen = false, prevIsOpen = false;
     Button* openCloseButton;
     vector<Button*> options = {};
     virtual void init(std::vector<Widget*>& w);
+    function<void()> onChange = []() {};
 };
 

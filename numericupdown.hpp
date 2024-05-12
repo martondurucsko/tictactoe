@@ -1,5 +1,7 @@
 #include "widget.hpp"
 
+#include <functional>
+
 using namespace genv;
 using namespace std;
 
@@ -20,10 +22,14 @@ public:
     virtual void setMaxValue(int value);
     virtual int getMinValue();
     virtual void setMinValue(int value);
+    virtual function<void()> getOnChange();
+    virtual void setOnChange(function<void()> onChange);
 protected:
     int value = 0;
+    int prevValue = 0;
     int stepValue = 1;
     int maxValue = INT_MAX;
     int minValue = INT_MIN;
+    function<void()> onChange = []() {};
 };
 

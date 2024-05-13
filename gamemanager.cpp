@@ -34,11 +34,55 @@ void GameManager::handle(event ev) {
 
 
 void GameManager::reset() {
-
+    for (int x = 0; x < cellNumber; ++x) {
+        for (int y = 0; y < cellNumber; ++y) {
+            cells[x][y]->setText("");
+        }
+    }
 }
 
 void GameManager::checkWinningConditions() {
+    for (int x = 0; x < cellNumber; ++x) {
+        int horizontalX=0;
+        int horizontalO=0;
+        int verticalX=0;
+        int verticalO=0;
+        for (int y = 0; y < cellNumber; ++y) {
+            Button* cellHorizontal=cells[y][x];
+            Button* cellVertical=cells[x][y];
+            if(cellHorizontal->getText() != ""){
+                if (cellHorizontal->getText() == "X") {
+                    //std::cout << "Field: X - X: " + std::to_string(horizontalX) + ", O: " + std::to_string(horizontalO) << std::endl;
+                    horizontalX++;
+                    horizontalO = 0;
+                }
+                else {
+                    //std::cout << "Field: O - X: " + std::to_string(horizontalX) + ", O: " + std::to_string(horizontalO) << std::endl;
+                    horizontalO++;
+                    horizontalX = 0;
 
+                }
+                if (cellVertical->getText() == "X") {
+                    std::cout << "Field: X - X: " + std::to_string(horizontalX) + ", O: " + std::to_string(horizontalO) << std::endl;
+                    verticalX++;
+                    verticalO = 0;
+                }
+                else {
+                    std::cout << "Field: O - X: " + std::to_string(horizontalX) + ", O: " + std::to_string(horizontalO) << std::endl;
+                    verticalO++;
+                    verticalX = 0;
+                }
+            }
+            if (horizontalX == 4 || verticalX == 4) {
+                std::cout << "X has won" << std::endl;
+                reset();
+            }
+            if (horizontalO == 4 || verticalO == 4) {
+                std::cout << "O has won" << std::endl;
+                reset();
+            }
+        }
+    }
 }
 
 void GameManager::createMap() {
@@ -57,7 +101,7 @@ void GameManager::createMap() {
                 if (cell->getText() == "") {
                     std::string player = currentPlayer == Players::X ? "X" : "O";
                     cell->setText(player);
-
+                    checkWinningConditions();
                     currentPlayer = currentPlayer == Players::X ? Players::O : Players::X;
                 }
             });

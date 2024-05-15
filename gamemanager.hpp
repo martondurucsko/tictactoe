@@ -1,7 +1,9 @@
-#pragma once
+#ifndef GAMEMANAGER_HPP
+#define GAMEMANAGER_HPP
 
 #include "widget.hpp"
 #include "button.hpp"
+#include "dialog.hpp"
 
 using namespace genv;
 
@@ -18,13 +20,18 @@ public:
     virtual std::string to_string();
     virtual void draw();
 protected:
+    Dialog* menu;
     int cellNumber = 15;
     Players currentPlayer = Players::X;
     Button*** cells;
+    virtual void createMenu();
     virtual void init();
+    virtual void openMainMenu();
     virtual void reset();
     virtual void checkWinningConditions();
     virtual void createMap();
     virtual void handleWin();
+
 };
 
+#endif

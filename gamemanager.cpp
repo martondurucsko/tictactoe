@@ -22,6 +22,7 @@ void GameManager::init() {
             cellNumber = 30;
             break;
         }
+
     });
 }
 
@@ -72,8 +73,8 @@ void GameManager::checkWinningConditions() {
                 }
             }
             if (horizontalX == 4 || verticalX == 4 || horizontalO == 4 || verticalO == 4) {
-                std::cout << (currentPlayer == Players::X ? "X has won" : "O has won") << std::endl;
-                reset();
+                //std::cout << (currentPlayer == Players::X ? "X has won" : "O has won") << std::endl;
+                handleWin();
             }
         }
     }
@@ -102,10 +103,61 @@ void GameManager::createMap() {
             cells[i][j] = cell;
         }
     }
+    createMenu();
+}
+
+void GameManager::createMenu(){
+    int menuWidth = 180;
+    int menuHeight = 180;
+    Option button1 = Option("menu", [=]() {
+        openMainMenu();
+    });
+    Option button2 = Option("rematch", [&]() {
+        menu->setVisible(false);
+        menu->setEnable(false);
+        reset();
+        for (int i = 0; i < cellNumber; ++i) {
+            for (int j = 0; j < cellNumber; ++j) {
+                Button* c = cells[i][j];
+                c->setEnable(true);
+            }
+        }
+    });
+    menu = new Dialog(w,width/2 - menuWidth / 2, height/2 - menuHeight / 2, menuWidth, menuHeight, "", button1, button2);
+    menu->setVisible(false);
+    menu->setEnable(false);
+}
+
+void GameManager::openMainMenu(){
+    if(cells!=nullptr){
+        for (int i = 0; i < cellNumber; ++i) {
+            for (int j = 0; j < cellNumber; ++j) {
+                Button* cell = cells[i][j];
+                cell->setEnable(false);
+                cell->setVisible(false);
+                delete cell;
+            }
+            delete[] cells[i];
+        }
+        delete[] cells;
+        cells = nullptr;
+    }
+    menu->setVisible(false);
+    menu->setEnable(false);
 }
 
 void GameManager::handleWin() {
-
+    for (int i = 0; i < cellNumber; ++i) {
+        for (int j = 0; j < cellNumber; ++j) {
+            Button* c = cells[i][j];
+            c->setEnable(false);
+        }
+    }
+    menu->setText(currentPlayer == Players::X ? "X has won" : "O has won");
+    menu->setVisible(true);
+    menu->setEnable(true);
+    //TODO: This doesnt seems to work in case the user went back to menu
+    currentPlayer = Players::X;
 }
 
 std::string GameManager::to_string() {

@@ -50,35 +50,29 @@ void GameManager::checkWinningConditions() {
         for (int y = 0; y < cellNumber; ++y) {
             Button* cellHorizontal=cells[y][x];
             Button* cellVertical=cells[x][y];
-            if(cellHorizontal->getText() != ""){
+            if (cellHorizontal->getText() != ""){
                 if (cellHorizontal->getText() == "X") {
-                    //std::cout << "Field: X - X: " + std::to_string(horizontalX) + ", O: " + std::to_string(horizontalO) << std::endl;
                     horizontalX++;
                     horizontalO = 0;
                 }
                 else {
-                    //std::cout << "Field: O - X: " + std::to_string(horizontalX) + ", O: " + std::to_string(horizontalO) << std::endl;
                     horizontalO++;
                     horizontalX = 0;
 
                 }
+            }
+            if (cellVertical->getText() != "") {
                 if (cellVertical->getText() == "X") {
-                    std::cout << "Field: X - X: " + std::to_string(horizontalX) + ", O: " + std::to_string(horizontalO) << std::endl;
                     verticalX++;
                     verticalO = 0;
                 }
                 else {
-                    std::cout << "Field: O - X: " + std::to_string(horizontalX) + ", O: " + std::to_string(horizontalO) << std::endl;
                     verticalO++;
                     verticalX = 0;
                 }
             }
-            if (horizontalX == 4 || verticalX == 4) {
-                std::cout << "X has won" << std::endl;
-                reset();
-            }
-            if (horizontalO == 4 || verticalO == 4) {
-                std::cout << "O has won" << std::endl;
+            if (horizontalX == 4 || verticalX == 4 || horizontalO == 4 || verticalO == 4) {
+                std::cout << (currentPlayer == Players::X ? "X has won" : "O has won") << std::endl;
                 reset();
             }
         }

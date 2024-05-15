@@ -5,6 +5,7 @@ CONFIG -= qt
 
 SOURCES += \
         button.cpp \
+        dialog.cpp \
         gamemanager.cpp \
         main.cpp \
         graphics/graphics.cpp \
@@ -31,6 +32,7 @@ DEPENDPATH += $$PWD/SDL2
 
 HEADERS += \
     button.hpp \
+    dialog.hpp \
     gamemanager.hpp \
     numericupdown.hpp \
     selector.hpp \

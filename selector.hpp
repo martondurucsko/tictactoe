@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SELECTOR_HPP
+#define SELECTOR_HPP
 
 #include <iostream>
 #include <functional>
@@ -50,3 +51,4 @@ protected:
     function<void()> onChange = []() {};
 };
 
+#endif

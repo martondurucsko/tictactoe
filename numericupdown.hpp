@@ -1,4 +1,5 @@
-#pragma once
+#ifndef NUMERICUPDOWN_HPP
+#define NUMERICUPDOWN_HPP
 
 #include <functional>
 
@@ -35,3 +36,5 @@ protected:
     function<void()> onChange = []() {};
 };
 
+
+#endif

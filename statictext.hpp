@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STATIC_HPP
+#define STATIC_HPP
 
 #include "widget.hpp"
 
@@ -14,3 +15,5 @@ public:
 protected:
     std::string text = "";
 };
+
+#endif

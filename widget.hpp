@@ -1,4 +1,5 @@
-#pragma once
+#ifndef WIDGET_HPP
+#define WIDGET_HPP
 
 #include "graphics.hpp"
 
@@ -52,3 +53,5 @@ protected:
     std::vector<Widget*>& w;
     std::vector<Widget*> children = {};
 };
+
+#endif

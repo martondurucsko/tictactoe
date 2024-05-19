@@ -2,12 +2,8 @@
 
 #include "gamemanager.hpp"
 #include "widget.hpp"
-#include "numericupdown.hpp"
-#include "selector.hpp"
 
 #include <vector>
-#include <fstream>
-#include <iostream>
 
 using namespace genv;
 using namespace std;
@@ -46,8 +42,7 @@ int main()
 
     vector<Widget*> w;
 
-    GameManager* gm = new GameManager(w, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-
+    new GameManager(w, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
     //Draw scene before first event
     for (Widget* wg : w) {

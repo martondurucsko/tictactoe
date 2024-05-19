@@ -2,7 +2,7 @@
 #include "selector.hpp"
 #include "statictext.hpp"
 
-GameManager::GameManager(std::vector<Widget*>& w, int x,int y, int width, int height) : Widget(w, x, y, width, height)
+GameManager::GameManager(std::vector<Widget*>& w, int x,int y, int width, int height) : w(w), x(x), y(y), width(width), height(height)
 {
     init();
 }
@@ -25,14 +25,6 @@ void GameManager::init() {
 
     });
 }
-
-void GameManager::draw() {
-}
-
-void GameManager::handle(event ev) {
-
-}
-
 
 void GameManager::reset() {
     for (int x = 0; x < cellNumber; ++x) {
@@ -241,8 +233,3 @@ void GameManager::handleWin() {
     menu->setEnable(true);
     currentPlayer = Players::X;
 }
-
-std::string GameManager::to_string() {
-    return "";
-}
-

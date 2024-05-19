@@ -1,7 +1,6 @@
 #ifndef GAMEMANAGER_HPP
 #define GAMEMANAGER_HPP
 
-#include "widget.hpp"
 #include "button.hpp"
 #include "dialog.hpp"
 
@@ -12,17 +11,19 @@ enum Players {
     O = 1
 };
 
-class GameManager : public Widget
+class GameManager
 {
 public:
     GameManager(std::vector<Widget*>& w, int x,int y, int width, int height);
-    virtual void handle(event ev);
-    virtual std::string to_string();
-    virtual void draw();
 protected:
-    Dialog* menu;
-    int cellNumber = 15;
+    std::vector<Widget*>& w;
+    int x;
+    int y;
+    int width;
+    int height;
     int amountToWin= 4;
+    int cellNumber = 15;
+    Dialog* menu;
     Players currentPlayer = Players::X;
     Button*** cells;
     virtual void createMenu();

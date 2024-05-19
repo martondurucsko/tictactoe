@@ -27,7 +27,6 @@ protected:
     Players currentPlayer = Players::X;
     Button*** cells;
     virtual void createMenu();
-    virtual void init();
     virtual void openMainMenu();
     virtual void reset();
     virtual void checkWinningConditions();

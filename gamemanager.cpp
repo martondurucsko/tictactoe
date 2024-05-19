@@ -4,10 +4,6 @@
 
 GameManager::GameManager(std::vector<Widget*>& w, int x,int y, int width, int height) : w(w), x(x), y(y), width(width), height(height)
 {
-    init();
-}
-
-void GameManager::init() {
     int widgetHeight = 50;
     int widgetWidth = 180;
     new Button(w, width / 2 - widgetWidth / 2, height / 2 - widgetWidth / 2, widgetWidth, widgetHeight, "Play", [=]() { createMap(); });
@@ -22,7 +18,6 @@ void GameManager::init() {
             cellNumber = 30;
             break;
         }
-
     });
 }
 

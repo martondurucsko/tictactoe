@@ -21,7 +21,7 @@ protected:
     int y;
     int width;
     int height;
-    int amountToWin= 4;
+    int amountToWin = 4;
     int cellNumber = 15;
     Dialog* menu;
     Players currentPlayer = Players::X;
@@ -31,8 +31,7 @@ protected:
     virtual void reset();
     virtual void checkWinningConditions();
     virtual void createMap();
-    virtual void handleWin();
-
+    virtual void handleWin(bool isDraw);
 };
 
 #endif

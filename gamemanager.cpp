@@ -30,6 +30,20 @@ void GameManager::reset() {
 }
 
 void GameManager::checkWinningConditions() {
+    bool isFreeCellLeft = false;
+    for (int x = 0; x < cellNumber; ++x) {
+        for (int y = 0; y < cellNumber; ++y) {
+            Button* cell = cells[y][x];
+            if (cell->getText() == "") {
+                isFreeCellLeft = true;
+            }
+        }
+    }
+    if (!isFreeCellLeft) {
+        handleWin(true);
+        return;
+    }
+
     //Horizontal, Vertical
     for (int x = 0; x < cellNumber; ++x) {
         int horizontalX=0;
@@ -71,8 +85,9 @@ void GameManager::checkWinningConditions() {
                 verticalX = 0;
             }
 
+
             if (horizontalX == 4 || verticalX == 4 || horizontalO == 4 || verticalO == 4) {
-                handleWin();
+                handleWin(false);
             }
         }
     }
@@ -107,7 +122,7 @@ void GameManager::checkWinningConditions() {
                     leftDiagonalX = 0;
                 }
                 if(leftDiagonalO >= amountToWin || leftDiagonalX >= amountToWin){
-                    handleWin();
+                    handleWin(false);
                 }
             }
         }
@@ -143,7 +158,7 @@ void GameManager::checkWinningConditions() {
                     rightDiagonalX = 0;
                 }
                 if(rightDiagonalO >= amountToWin || rightDiagonalX >= amountToWin){
-                    handleWin();
+                    handleWin(false);
                 }
             }
         }
@@ -216,14 +231,14 @@ void GameManager::openMainMenu(){
     menu->setEnable(false);
 }
 
-void GameManager::handleWin() {
+void GameManager::handleWin(bool isDraw) {
     for (int i = 0; i < cellNumber; ++i) {
         for (int j = 0; j < cellNumber; ++j) {
             Button* c = cells[i][j];
             c->setEnable(false);
         }
     }
-    menu->setText(currentPlayer == Players::X ? "O has won" : "X has won");
+    menu->setText(isDraw ? "Draw" : (currentPlayer == Players::X ? "O has won" : "X has won"));
     menu->setVisible(true);
     menu->setEnable(true);
     currentPlayer = Players::X;

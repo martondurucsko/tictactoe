@@ -205,11 +205,7 @@ void GameManager::createMap() {
                         currentPlayer = Players::O;
                         renderMap();
                         checkWinningConditions();
-                        if (!movesLeft()) return;
-                        Position aiPosition = findBestMove();
-                        cells[aiPosition.x][aiPosition.y]->setText("O");
-                        currentPlayer = Players::X;
-                        checkWinningConditions();
+                        makeAIMove();
                     }
                 });
             }
@@ -507,13 +503,8 @@ void GameManager::startAILoop() {
 
 void GameManager::makeAIMove() {
     Position aiPosition = findBestMove();
-    if (currentPlayer == Players::X) {
-        cells[aiPosition.x][aiPosition.y]->setText("X");
-        std::cout << "X Player: X: " + std::to_string(aiPosition.x) + ", Y: " + std::to_string(aiPosition.y) << std::endl;
-    } else {
-        cells[aiPosition.x][aiPosition.y]->setText("O");
-        std::cout << "Y Player: X: " + std::to_string(aiPosition.x) + ", Y: " + std::to_string(aiPosition.y) << std::endl;
-    }
+    string player = currentPlayer == Players::X ? "X" : "O";
+    cells[aiPosition.x][aiPosition.y]->setText(player);
     renderMap();
 }
 

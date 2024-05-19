@@ -11,6 +11,12 @@ enum Players {
     O = 1
 };
 
+enum GameModes {
+    PvP = 0,
+    PvA = 1,
+    AvA = 2
+};
+
 class GameManager
 {
 public:

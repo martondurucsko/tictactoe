@@ -35,11 +35,12 @@ void Dialog::draw(){
     }
 
     int rgb = enable ? 255 : 40;
+    int buttonHeight = 40;
 
     gout << move_to(x, y) << color(rgb, rgb, rgb) << box(width, height);
     gout << move_to(x + 2, y + 2) << color(0,0,0) << box(width - 4, height - 4);
     int text_x = x + (width - gout.twidth(text)) / 2;
-    int text_y = y + height / 2 + (gout.cascent() - gout.cdescent()) / 2;
+    int text_y = y + height / 2 + (gout.cascent() - gout.cdescent()) / 2 - buttonHeight / 2;
     gout << move_to(text_x,text_y) << color(rgb, rgb, rgb) << genv::text(text);
 }
 

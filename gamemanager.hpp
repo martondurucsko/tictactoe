@@ -22,6 +22,7 @@ public:
 protected:
     Dialog* menu;
     int cellNumber = 15;
+    int amountToWin= 4;
     Players currentPlayer = Players::X;
     Button*** cells;
     virtual void createMenu();

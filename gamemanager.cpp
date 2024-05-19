@@ -43,6 +43,7 @@ void GameManager::reset() {
 }
 
 void GameManager::checkWinningConditions() {
+    //Horizontal, Vertical
     for (int x = 0; x < cellNumber; ++x) {
         int horizontalX=0;
         int horizontalO=0;
@@ -51,6 +52,7 @@ void GameManager::checkWinningConditions() {
         for (int y = 0; y < cellNumber; ++y) {
             Button* cellHorizontal=cells[y][x];
             Button* cellVertical=cells[x][y];
+
             if (cellHorizontal->getText() != ""){
                 if (cellHorizontal->getText() == "X") {
                     horizontalX++;
@@ -62,6 +64,11 @@ void GameManager::checkWinningConditions() {
 
                 }
             }
+            else {
+                horizontalO = 0;
+                horizontalX = 0;
+            }
+
             if (cellVertical->getText() != "") {
                 if (cellVertical->getText() == "X") {
                     verticalX++;
@@ -72,9 +79,85 @@ void GameManager::checkWinningConditions() {
                     verticalX = 0;
                 }
             }
+            else {
+                verticalO = 0;
+                verticalX = 0;
+            }
+
             if (horizontalX == 4 || verticalX == 4 || horizontalO == 4 || verticalO == 4) {
-                //std::cout << (currentPlayer == Players::X ? "X has won" : "O has won") << std::endl;
                 handleWin();
+            }
+        }
+    }
+
+    //Left diagonal
+    for (int x = 0; x < cellNumber; ++x) {
+        for (int y = 0; y < cellNumber; ++y) {
+            int maxStepX = cellNumber - x;
+            int maxStepY = cellNumber - y;
+            if (maxStepX < amountToWin || maxStepY < amountToWin)
+            {
+                break;
+            }
+
+
+            int leftDiagonalX = 0;
+            int leftDiagonalO = 0;
+            for (int i = 0; i < amountToWin; i++) {
+                Button* cell = cells[x+i][y+i];
+                if(cell->getText() != ""){
+                    if(cell->getText() == "X"){
+                        leftDiagonalX++;
+                        leftDiagonalO = 0;
+                    }
+                    else{
+                        leftDiagonalO++;
+                        leftDiagonalX = 0;
+                    }
+                }
+                else {
+                    leftDiagonalO = 0;
+                    leftDiagonalX = 0;
+                }
+                if(leftDiagonalO >= amountToWin || leftDiagonalX >= amountToWin){
+                    handleWin();
+                }
+            }
+        }
+    }
+    //Right diagonal
+    for (int x = 0; x < cellNumber; ++x) {
+        for (int y = 0; y < cellNumber; ++y) {
+            int maxStepX = cellNumber - y;
+            if (maxStepX < amountToWin)
+            {
+                continue;
+            }
+
+            int rightDiagonalX = 0;
+            int rightDiagonalO = 0;
+            for (int i = 0; i < amountToWin; i++) {
+                if (x - i < 0 || y + i < 0){
+                    break;
+                }
+                Button* cell = cells[y+i][x-i];
+                if(cell->getText() != ""){
+                    if(cell->getText() == "X"){
+                        rightDiagonalX++;
+                        rightDiagonalO = 0;
+                    }
+                    else{
+                        rightDiagonalO++;
+                        rightDiagonalX = 0;
+                    }
+                }
+                else {
+                    rightDiagonalO = 0;
+                    rightDiagonalX = 0;
+                }
+                if(rightDiagonalO >= amountToWin || rightDiagonalX >= amountToWin){
+                    handleWin();
+                }
             }
         }
     }
@@ -96,8 +179,8 @@ void GameManager::createMap() {
                 if (cell->getText() == "") {
                     std::string player = currentPlayer == Players::X ? "X" : "O";
                     cell->setText(player);
-                    checkWinningConditions();
                     currentPlayer = currentPlayer == Players::X ? Players::O : Players::X;
+                    checkWinningConditions();
                 }
             });
             cells[i][j] = cell;
@@ -153,10 +236,9 @@ void GameManager::handleWin() {
             c->setEnable(false);
         }
     }
-    menu->setText(currentPlayer == Players::X ? "X has won" : "O has won");
+    menu->setText(currentPlayer == Players::X ? "O has won" : "X has won");
     menu->setVisible(true);
     menu->setEnable(true);
-    //TODO: This doesnt seems to work in case the user went back to menu
     currentPlayer = Players::X;
 }
 

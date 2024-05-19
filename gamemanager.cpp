@@ -497,7 +497,9 @@ void GameManager::startAILoop() {
         if (!movesLeft() || menu->getEnable()) {
             break;
         }
-        currentPlayer = currentPlayer == Players::X ? Players::O : Players::X;
+        if (currentGameMode == GameModes::AvA) {
+            currentPlayer = currentPlayer == Players::X ? Players::O : Players::X;
+        }
     }
 }
 

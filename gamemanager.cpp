@@ -5,12 +5,24 @@
 GameManager::GameManager(std::vector<Widget*>& w, int x,int y, int width, int height) : w(w), x(x), y(y), width(width), height(height)
 {
     int widgetHeight = 50;
-    int widgetWidth = 180;
-    new Button(w, width / 2 - widgetWidth / 2, height / 2 - widgetWidth / 2, widgetWidth, widgetHeight, "Play", [=]() { createMap(); });
+    int widgetWidth = 200;
+    new Button(w, width / 2 - widgetWidth / 2, height / 2 - widgetWidth / 2 + widgetHeight + 30, widgetWidth, widgetHeight, "Play", [=]() { createMap(); });
     new StaticText(w, width / 2 - widgetWidth / 2, height / 2 - widgetWidth / 2 - widgetHeight - 10, "Map Size");
-    Selector* s = new Selector (w, width / 2 - widgetWidth / 2, height / 2 - widgetWidth / 2 - widgetHeight - 5, widgetWidth, widgetHeight, {"15x15", "30x30"});
-    s->setOnChange([=]() {
-        switch(s->getSelectedIndex()) {
+    new StaticText(w, width / 2 - widgetWidth / 2, height / 2 - widgetWidth / 2 + 15, "Game Mode");
+    Selector* modeSelector = new Selector(w, width / 2 - widgetWidth / 2, height / 2 - widgetWidth / 2 + 20, widgetWidth, widgetHeight, {"Player vs Player", "Player vs AI", "AI vs AI"});
+    modeSelector->setOnChange([=]() {
+        switch(modeSelector->getSelectedIndex()) {
+        case 0:
+            cellNumber = 15;
+            break;
+        case 1:
+            cellNumber = 30;
+            break;
+        }
+    });
+    Selector* sizeSelector = new Selector (w, width / 2 - widgetWidth / 2, height / 2 - widgetWidth / 2 - widgetHeight - 5, widgetWidth, widgetHeight, {"15x15", "30x30"});
+    sizeSelector->setOnChange([=]() {
+        switch(sizeSelector->getSelectedIndex()) {
         case 0:
             cellNumber = 15;
             break;

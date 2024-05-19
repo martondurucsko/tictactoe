@@ -27,17 +27,25 @@ protected:
     int y;
     int width;
     int height;
-    int amountToWin = 4;
+    int amountToWin = 5;
     int cellNumber = 15;
     Dialog* menu;
-    Players currentPlayer = Players::X;
     Button*** cells;
+    Players currentPlayer = Players::X;
+    GameModes currentGameMode = GameModes::PvP;
     virtual void createMenu();
     virtual void openMainMenu();
     virtual void reset();
     virtual void checkWinningConditions();
     virtual void createMap();
     virtual void handleWin(bool isDraw);
+    virtual int minimax(int depth, bool isMax, int alpha, int beta, int maxDepth);
+    virtual Position findBestMove();
+    virtual int evaluate();
+    virtual bool movesLeft();
+    virtual void renderMap();
+    virtual void startAILoop();
+    virtual void makeAIMove();
 };
 
 #endif
